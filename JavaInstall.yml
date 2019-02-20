@@ -1,6 +1,5 @@
 ---
- - hosts: host1
-   connection: local
+ - hosts: 10.127.126.48
    tasks:
    - name: Install Java 1.7
      yum: name=java-1.7.0-openjdk state=present
