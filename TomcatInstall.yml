@@ -1,6 +1,9 @@
 ---
  - hosts: host1
    connection: local
+   sudo: True
+   sudo_user: scm_admin
+
    tasks:
    - name: add group "tomcat"
      group: name=tomcat
