@@ -2,6 +2,22 @@
  - hosts: server
    connection: local
    tasks:
-   - name: Install Java 1.7
-     yum: name=java-1.7.0-openjdk state=present
+
+   - name: Copy Java
+     copy: src=/opt/software/jdk-8u201-linux-x64.tar.gz dest=/opt/jdk-8u201-linux-x64.tar.gz
+
+   - name: Extract archive
+     command: chdir=/opt/software/installation /bin/tar xvf /opt/jdk-8u201-linux-x64.tar.gz
+
+   - name: Update Path
+     template:
+       src: files/.bashrc
+       dest: /root/.bashrc
+       command: source /root/.bashrc
+       owner: root
+       group: root
+       mode: 0644
+
+
+
 
