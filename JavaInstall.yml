@@ -3,6 +3,7 @@
    connection: local
    become: True
    become_method: sudo
+   remote_src: true
    tasks:
 
    - name: Copy Java
