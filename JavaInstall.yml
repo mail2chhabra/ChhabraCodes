@@ -3,11 +3,15 @@
    connection: local
    become: True
    become_method: sudo
-   remote_src: true
+   #remote_src: true
    tasks:
 
    - name: Copy Java
-     copy: src=/opt/software/jdk-8u201-linux-x64.tar.gz dest=/opt/jdk-8u201-linux-x64.tar.gz
+     copy:
+       remote_src: True
+       src: /opt/software/jdk-8u201-linux-x64.tar.gz 
+       dest: /opt/jdk-8u201-linux-x64.tar.gz
+    
 
    - name: Extract archive
      command: chdir=/opt/software/installation /bin/tar xvf /opt/jdk-8u201-linux-x64.tar.gz
