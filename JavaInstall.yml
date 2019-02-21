@@ -1,5 +1,5 @@
 ---
- - hosts: host1
+ - hosts: server
    connection: local
    tasks:
    - name: Install Java 1.7
