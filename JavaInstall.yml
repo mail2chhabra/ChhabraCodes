@@ -1,8 +1,8 @@
 ---
  - hosts: server
    connection: local
-   sudo: True
-   sudo_user: scm_admin
+   become: True
+   become_method: sudo
    tasks:
 
    - name: Copy Java
