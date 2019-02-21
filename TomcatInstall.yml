@@ -12,7 +12,7 @@
 
    - name: Copy Tomcat
      copy: src=files/apache-tomcat-8.5.38.tar.gz dest=/opt/apache-tomcat-8.5.38.tar.gz
-    #     remote_src: yes
+     remote_src: yes
 
    
    - name: Extract archive
