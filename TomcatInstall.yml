@@ -10,16 +10,23 @@
      become: True
      become_method: sudo
 
-   - name: Copy Tomcat
-     copy: src=files/apache-tomcat-8.5.38.tar.gz dest=/opt/apache-tomcat-8.5.38.tar.gz remote_src=yes
+   - name: Clone the repos
+     git: repo=https://github.com/mail2chhabra/ChhabraCodes.git dest=/tmp/ChhabraCodes
+
+   - name: Copy the tomcat.gz
+     copy: src=/tmp/ChhabraCodes/files/apache-tomcat-8.5.38.tar.gz dest=/opt/
    
    - name: Extract archive
      command: chdir=/usr/share /bin/tar xvf /opt/apache-tomcat-8.5.38.tar.gz -C /opt/ creates=/opt/apache-tomcat-8.5.38
 
    - name: Symlink install directory
      file: src=/opt/apache-tomcat-8.5.38 path=/usr/share/tomcat state=link
+     notify:
+     - remove directory
 
    - name: Change ownership of Tomcat installation
      file: path=/usr/share/tomcat/ owner=tomcat group=tomcat state=directory recurse=yes
 
-
+   handlers:
+   - name: remove directory
+     file: path=/tmp/ChhabraCodes state=absent
