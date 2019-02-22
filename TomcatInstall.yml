@@ -1,5 +1,6 @@
 ---
  - hosts: server
+   become: true
 
    tasks:
    - name: add group "tomcat"
@@ -10,23 +11,11 @@
      become: True
      become_method: sudo
 
-   - name: Clone the repos
-     git: repo=https://github.com/mail2chhabra/ChhabraCodes.git dest=/tmp/ChhabraCodes
-
-   - name: Copy the tomcat.gz
-     copy: src=/tmp/ChhabraCodes/files/apache-tomcat-8.5.38.tar.gz dest=/opt/ remote_src=yes
-   
-   - name: Extract archive
-     command: chdir=/usr/share /bin/tar xvf /opt/apache-tomcat-8.5.38.tar.gz -C /opt/ creates=/opt/apache-tomcat-8.5.38
+   - name: Download the Tomcat 
+     unarchive: src=https://archive.apache.org/dist/tomcat/tomcat-8/v8.0.32/bin/apache-tomcat-8.0.32.zip dest=/opt/ remote_src=yes
 
    - name: Symlink install directory
-     file: src=/opt/apache-tomcat-8.5.38 path=/usr/share/tomcat state=link
-     notify:
-     - remove directory
+     file: src=/opt/apache-tomcat-8.0.32 path=/usr/share/tomcat state=link
 
    - name: Change ownership of Tomcat installation
      file: path=/usr/share/tomcat/ owner=tomcat group=tomcat state=directory recurse=yes
-
-   handlers:
-   - name: remove directory
-     file: path=/tmp/ChhabraCodes state=absent
