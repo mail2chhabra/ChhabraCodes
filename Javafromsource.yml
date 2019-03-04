@@ -1,12 +1,6 @@
 ---
  - hosts: server
    become: true
-   
-#   tasks:
-#   - name: Download Java
-#     get_url:
-#      url: http://10.127.126.113:8040/artifactory/AWX-Devops/jdk1.8.0_201.zip
-#      dest: /opt/jdk1.8.0.201
 
   - name: Download Java 
     unarchive: src=http://10.127.126.113:8040/artifactory/AWX-Devops/jdk1.8.0_201.zip dest=/opt/ remote_src=yes
