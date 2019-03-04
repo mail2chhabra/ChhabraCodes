@@ -4,7 +4,7 @@
    
    tasks:
    - name: Download Java
-     shell: cd /tmp ; wget  http://10.127.126.113:8040/artifactory/AWX-Devops/jdk1.8.0_201.zip
+     shell: curl http://10.127.126.113:8040/artifactory/AWX-Devops/jdk1.8.0_201.zip -o /tmp/jdk1.8.0_201.zip
 
 #  - name: Download Java 
 #     unarchive: src=http://10.127.126.113:8040/artifactory/AWX-Devops/jdk1.8.0_201.zip dest=/opt/ remote_src=yes
