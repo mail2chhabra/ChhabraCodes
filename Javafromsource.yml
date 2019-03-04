@@ -1,10 +1,11 @@
 ---
  - hosts: server
    become: true
+   
+   tasks
+   - name: Download Java 
+     unarchive: src=http://10.127.126.113:8040/artifactory/AWX-Devops/jdk1.8.0_201.zip dest=/opt/ remote_src=yes
 
-  - name: Download Java 
-    unarchive: src=http://10.127.126.113:8040/artifactory/AWX-Devops/jdk1.8.0_201.zip dest=/opt/ remote_src=yes
-
-  - name: Symlink install directory
-    file: src=/opt/jdk1.8.0_201 path=/usr/share/java18201 state=link
+   - name: Symlink install directory
+     file: src=/opt/jdk1.8.0_201 path=/usr/share/java18201 state=link
 
