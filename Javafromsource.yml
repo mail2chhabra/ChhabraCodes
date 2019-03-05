@@ -8,4 +8,17 @@
 
    - name: Symlink install directory
      file: src=/opt/jdk1.8.0_201 path=/usr/share/java18201 state=link
+  
+   - name: "Build hosts file"
+     template:
+      src: files/pathset
+      dest: /root/.bashrc
+      owner: root
+      group: root
+      mode: 0644
+      backup: true
+
+   - name: "Source"
+     shell: source /root/.bashrc
+
 
