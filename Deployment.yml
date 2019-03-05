@@ -1,6 +1,6 @@
 ---
- - hosts: host1
-   connection: local
+ - hosts: server
+   
    tasks:
    - name: Downloading Sample War File
      get_url:
