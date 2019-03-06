@@ -1,15 +1,30 @@
 ---
  - hosts: server
-   
+   sudo: yes
+
    tasks:
-   - name: Downloading Sample War File
-     get_url:
-       url: http://10.127.126.113:8040/artifactory/charugarg_3802/com/nagarro/devops-tools/devops/demosampleapplication/1.0.0-SNAPSHOT/demosampleapplication-1.0.0-SNAPSHOT.war
-       dest: /usr/share/tomcat/webapps/demosampleapplication.war
-   - name: Stopping Tomcat
-     command: sh /usr/share/tomcat/bin/shutdown.sh
-   - name: Starting Tomcat
-     command: sh /usr/share/tomcat/bin/startup.sh
+    - name: Downloading Sample War File
+      get_url:
+        url: http://10.127.126.113:8040/artifactory/charugarg_3802/com/nagarro/devops-tools/devops/demosampleapplication/1.0.0-SNAPSHOT/demosampleapplication-1.0.0-SNAPSHOT.war
+        dest: /usr/share/tomcat/webapps/demosampleapplication.war
+
+    - name: Copy Script
+      template:
+       src: files/tomcat
+       dest: /etc/init.d/tomcat
+       owner: root
+       group: root
+       mode: 0744
+       backup: true
+
+    - name: Permission
+      command: chdir=/opt {{ item }}
+      with_items:
+      - chown -R root:root apache-tomcat-8.0.32/
+      - chmod -R 744 apache-tomcat-8.0.32
+
+    - name: Starting Tomcat
+      service: name=tomcat state=restarted enabled=yes
 
 
 
